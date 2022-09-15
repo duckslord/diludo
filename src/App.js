@@ -1,6 +1,6 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
@@ -33,14 +33,6 @@ function App({ signOut }) {
     setNotes(newNotesArray);
     await API.graphql({ query: deleteNoteMutation, variables: { input: { id } }});
   }
-
-  async function onChange(e) {
-  if (!e.target.files[0]) return
-  const file = e.target.files[0];
-  setFormData({ ...formData, image: file.name });
-  await Storage.put(file.name, file);
-  fetchNotes();
-}
   return (
     <div className="App">
       <h1>My Notes App</h1>
