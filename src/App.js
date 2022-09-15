@@ -66,10 +66,6 @@ function App({ signOut }) {
         placeholder="Note description"
         value={formData.description}
       />
-      <input
-        type="file"
-        onChange={onChange}
-      />
       <button onClick={createNote}>Create Note</button>
       <div style={{marginBottom: 30}}>
       {
