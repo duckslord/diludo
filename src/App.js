@@ -30,15 +30,15 @@ function App({ signOut }) {
   }
 
   async function createNote() {
-    if (!formData.name || !formData.description) return;
-    await API.graphql({ query: createNoteMutation, variables: { input: formData } });
-    if (formData.image) {
-      const image = await Storage.get(formData.image);
-      formData.image = image;
-    }
-    setNotes([ ...notes, formData ]);
-    setFormData(initialFormState);
+  if (!formData.name || !formData.description) return;
+  await API.graphql({ query: createNoteMutation, variables: { input: formData } });
+  if (formData.image) {
+    const image = await Storage.get(formData.image);
+    formData.image = image;
   }
+  setNotes([ ...notes, formData ]);
+  setFormData(initialFormState);
+}
 
   async function deleteNote({ id }) {
     const newNotesArray = notes.filter(note => note.id !== id);
@@ -68,18 +68,15 @@ function App({ signOut }) {
       />
       <button onClick={createNote}>Create Note</button>
       <div style={{marginBottom: 30}}>
-      {
-        notes.map(note => (
-          <div key={note.id || note.name}>
-            <h2>{note.name}</h2>
-            <p>{note.description}</p>
-            <button onClick={() => deleteNote(note)}>Delete note</button>
-            {
-              note.image && <img src={note.image} style={{width: 400}} />
-            }
-          </div>
-        ))
-      }
+        {
+          notes.map(note => (
+            <div key={note.id || note.name}>
+              <h2>{note.name}</h2>
+              <p>{note.description}</p>
+              <button onClick={() => deleteNote(note)}>Delete note</button>
+            </div>
+          ))
+        }
       </div>
       <button onClick={signOut}>Sign Out</button>
     </div>
